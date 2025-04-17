@@ -2,13 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>This is my home page HTML</title>
+    <title>My Hikes</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
 </head>
 <body>
-<h1>Home Page - Flask Project</h1>
-    <a href="/about">about page</a>
-
+    <h1>Hike Collection</h1>
+    <a href="/about">Add a New Hike</a>
+    {% if hikes %}
+        <ul>
+        {% for hike in hikes %}
+            <li>
+                <img src="{{ url_for('static', filename='images/' ~ hike.image) }}" alt="{{ hike.name }}" style="max-width: 100%; height: auto; border-radius: 6px; margin-bottom: 10px;">
+                <strong>{{ hike.name }}</strong> ({{ hike.location }}) - {{ hike.distance }} km
+                <p>{{ hike.description }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hikes added yet.</p>
+    {% endif %}
 </body>
 </html>
